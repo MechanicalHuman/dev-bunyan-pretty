@@ -1,0 +1,26 @@
+{
+  "name": "@mechanicalhuman/bunyan-pretty",
+  "version": "0.0.8",
+  "description": "Pretty format for Bunayn logs, similar to `bunyan -o short` but actually pretty. ",
+  "license": "MIT",
+  "author": "Jorge Proaño <jorge@hiddennodeproblem.com> (https://www.hidden-node-problem.com)",
+  "main": "lib/index.js",
+  "bin": {
+    "bunyan-pretty": "./bin/bunyan-pretty.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "chalk": "^2.1.0",
+    "lodash": "^4.17.4",
+    "minimist": "^1.2.0",
+    "parse-headers": "^2.0.1",
+    "pretty-error": "^2.1.0",
+    "pretty-ms": "^3.0.0",
+    "pug": "^2.0.0-beta.12",
+    "renderkid": "^2.0.1",
+    "split2": "^2.1.1",
+    "string-length": "^2.0.0"
+  }
+}
