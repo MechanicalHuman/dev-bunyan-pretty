@@ -1,16 +1,12 @@
 span
-	//- #{self.color} !{self.level}
-	//-     item ⎮
-	//-     item #{self.loggerId}
-	//-     item  ❯
-	#{self.color} #{self.loggerId} ❯
+    #{self.color} #{self.loggerId} ❯
 if self.message
-	item !{self.message}
-if self.reqId
-	item
-		dimmed #{self.reqId}
-item
-	dimmed #{self.time}
-
+    item #{self.message}
+if self.id
+    item
+        dimmed #{self.id}
+if self.time
+    item
+        dimmed #{self.time}
 if self.src
-	src #{self.src}
+    src #{self.src}

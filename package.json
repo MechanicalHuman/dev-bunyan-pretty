@@ -1,6 +1,6 @@
 {
   "name": "@mechanicalhuman/bunyan-pretty",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Pretty format for Bunayn logs, similar to `bunyan -o short` but actually pretty. ",
   "license": "MIT",
   "author": "Jorge Proaño <jorge@hiddennodeproblem.com> (https://www.hidden-node-problem.com)",
@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "chalk": "^2.1.0",
+    "json-parse-safe": "^1.0.3",
     "lodash": "^4.17.4",
-    "minimist": "^1.2.0",
     "parse-headers": "^2.0.1",
     "pretty-error": "^2.1.0",
     "pretty-ms": "^3.0.0",
@@ -22,5 +22,20 @@
     "renderkid": "^2.0.1",
     "split2": "^2.1.1",
     "string-length": "^2.0.0"
-  }
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MechanicalHuman/dev-bunyan-pretty.git"
+  },
+  "keywords": [
+    "bunyan"
+  ],
+  "bugs": {
+    "url": "https://github.com/MechanicalHuman/dev-bunyan-pretty/issues"
+  },
+  "homepage": "https://github.com/MechanicalHuman/dev-bunyan-pretty#readme"
 }
