@@ -1,6 +1,6 @@
 {
   "name": "@mechanicalhuman/bunyan-pretty",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Pretty format for Bunayn logs, similar to `bunyan -o short` but actually pretty. ",
   "license": "MIT",
   "author": "Jorge Proaño <jorge@hiddennodeproblem.com> (https://www.hidden-node-problem.com)",
