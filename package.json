@@ -2,15 +2,19 @@
   "name": "@mechanicalhuman/bunyan-pretty",
   "version": "0.0.14",
   "description": "Pretty format for Bunayn logs, similar to `bunyan -o short` but actually pretty. ",
+  "keywords": [ "bunyan" ],
+  "homepage": "https://github.com/MechanicalHuman/dev-bunyan-pretty#readme",
+  "bugs": { "url": "https://github.com/MechanicalHuman/dev-bunyan-pretty/issues" },
   "license": "MIT",
   "author": "Jorge Proaño <jorge@hiddennodeproblem.com> (https://www.hidden-node-problem.com)",
   "main": "lib/index.js",
-  "bin": {
-    "bunyan-pretty": "./bin/bunyan-pretty.js"
+  "bin": { "bunyan-pretty": "./bin/bunyan-pretty.js" },
+  "directories": { "lib": "lib" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MechanicalHuman/dev-bunyan-pretty.git"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": { "test": "echo \"Error: no test specified\" && exit 1" },
   "dependencies": {
     "chalk": "^2.1.0",
     "json-parse-safe": "^1.0.3",
@@ -23,19 +27,6 @@
     "split2": "^2.1.1",
     "string-length": "^2.0.0"
   },
-  "directories": {
-    "lib": "lib"
-  },
   "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MechanicalHuman/dev-bunyan-pretty.git"
-  },
-  "keywords": [
-    "bunyan"
-  ],
-  "bugs": {
-    "url": "https://github.com/MechanicalHuman/dev-bunyan-pretty/issues"
-  },
-  "homepage": "https://github.com/MechanicalHuman/dev-bunyan-pretty#readme"
+  "publishConfig": { "access": "public" }
 }
