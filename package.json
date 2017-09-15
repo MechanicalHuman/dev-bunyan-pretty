@@ -13,7 +13,7 @@
   "author": "Jorge Proaño <jorge@hiddennodeproblem.com> (https://www.hidden-node-problem.com)",
   "main": "lib/index.js",
   "bin": {
-    "bunyan-pretty": "./bin/bunyan-pretty.js"
+    "pretty": "./bin/bunyan-pretty.js"
   },
   "directories": {
     "lib": "lib"
@@ -23,10 +23,11 @@
     "url": "git+https://github.com/MechanicalHuman/dev-bunyan-pretty.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "chalk": "^2.1.0",
+    "hanging-indent": "^0.1.1",
     "json-parse-safe": "^1.0.3",
     "lodash": "^4.17.4",
     "parse-headers": "^2.0.1",
@@ -35,7 +36,10 @@
     "pug": "^2.0.0-beta.12",
     "renderkid": "^2.0.1",
     "split2": "^2.1.1",
-    "string-length": "^2.0.0"
+    "string-length": "^2.0.0",
+    "supports-color": "^4.4.0",
+    "term-size": "^1.2.0",
+    "yargs": "^8.0.2"
   },
   "devDependencies": {},
   "publishConfig": {
