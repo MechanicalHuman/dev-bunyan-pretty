@@ -1,6 +1,8 @@
 #! /usr/bin/env node
 'use strict'
 
+// process.env.DEBUG = 'mech*'
+
 const chalk = require('chalk')
 const cli = require('yargs')
 const fs = require('fs')
