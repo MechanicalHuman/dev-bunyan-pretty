@@ -26,7 +26,7 @@
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "dependencies": {
-    "chalk": "^2.1.0",
+    "chalk": "^2.3.0",
     "debug": "^3.0.1",
     "hanging-indent": "^0.1.1",
     "json-parse-safe": "^1.0.3",
@@ -36,10 +36,10 @@
     "pretty-ms": "^3.0.0",
     "split2": "^2.1.1",
     "string-length": "^2.0.0",
-    "supports-color": "^4.4.0",
+    "supports-color": "^5.0.1",
     "term-size": "^1.2.0",
     "update-notifier": "^2.2.0",
-    "yargs": "^9.0.1"
+    "yargs": "^10.0.3"
   },
   "devDependencies": {},
   "publishConfig": {
