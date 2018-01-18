@@ -31,6 +31,7 @@
     "hanging-indent": "^0.1.1",
     "json-parse-safe": "^1.0.3",
     "lodash": "^4.17.4",
+    "moment": "^2.20.1",
     "parse-headers": "^2.0.1",
     "pretty-error": "^2.1.0",
     "pretty-ms": "^3.0.0",
