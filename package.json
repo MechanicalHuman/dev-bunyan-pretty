@@ -33,14 +33,13 @@
     "lodash": "^4.17.4",
     "moment": "^2.20.1",
     "parse-headers": "^2.0.1",
-    "pretty-error": "^2.1.0",
     "pretty-ms": "^3.0.0",
     "split2": "^2.1.1",
     "string-length": "^2.0.0",
-    "supports-color": "^5.0.1",
+    "supports-color": "^5.1.0",
     "term-size": "^1.2.0",
     "update-notifier": "^2.2.0",
-    "yargs": "^10.0.3"
+    "yargs": "^10.1.2"
   },
   "devDependencies": {},
   "publishConfig": {
