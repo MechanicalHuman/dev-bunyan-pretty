@@ -14,6 +14,8 @@ const pkg = require('../package.json')
 const debug = require('debug')('mech:logger:cli')
 const PIPED = !process.stdin.isTTY
 
+const moment = require('moment-timezone')
+
 updateNotifier({ pkg }).notify()
 
 cli
@@ -28,6 +30,12 @@ cli
     alias: 'stamp-format',
     default: 'YYYY-MM-DD-HH:mm:ss',
     describe: 'TimeStamps format (passed to moment.format)',
+    type: 'String'
+  })
+  .option('tz', {
+    alias: 'time-zone',
+    default: moment.tz.guess() || 'UTC',
+    describe: 'TimeStamps zone offset (ex: "America/New_York")',
     type: 'String'
   })
   .option('depth', {
@@ -46,12 +54,13 @@ cli
   .version()
   .help()
 
-const { timeStamps, stampFormat, depth } = cli.argv
+const { timeStamps, stampFormat, depth, timeZone } = cli.argv
 
 if (PIPED) {
   Constants.DEPTH = depth
   Constants.TIME_STAMPS = timeStamps
   Constants.TIME_STAMPS_FORMAT = stampFormat
+  Constants.TIME_STAMPS_ZONE = timeZone
   attachToEvents()
   process.stdin.pipe(require('../lib')(process.stdout))
 }
