@@ -32,7 +32,7 @@ cli
     describe: 'TimeStamps format (passed to moment.format)',
     type: 'String'
   })
-  .option('tz', {
+  .option('z', {
     alias: 'time-zone',
     default: moment.tz.guess() || 'UTC',
     describe: 'TimeStamps zone offset (ex: "America/New_York")',
@@ -42,8 +42,6 @@ cli
     default: 4,
     describe: '(passed to util.inspect)'
   })
-  .alias('help', 'h')
-  .alias('version', 'v')
   .fail(msg => {
     cli.showHelp()
     console.error(chalk.red(`${chalk.bold('>')} ${msg}`))
