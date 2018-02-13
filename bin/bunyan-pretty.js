@@ -3,23 +3,29 @@
 
 // process.env.DEBUG = 'mech*'
 
-const chalk = require('chalk')
 const cli = require('yargs')
 const termSize = require('term-size')
 const updateNotifier = require('update-notifier')
+const moment = require('moment-timezone')
+const supportsColor = require('supports-color')
 
 const Constants = require('../lib/constants')
 const pkg = require('../package.json')
 
 const debug = require('debug')('mech:logger:cli')
-const PIPED = !process.stdin.isTTY
 
-const moment = require('moment-timezone')
+const PIPED = !process.stdin.isTTY
 
 updateNotifier({ pkg }).notify()
 
+Constants.COLUMNS = termSize().columns
+Constants.COLUMNS_BREAK = Constants.INPM2 ? 79 : 80
+Constants.COLUMNS_MIN = Constants.COLUMNS > 60 ? 60 : Constants.COLUMNS
+
+Constants.USE_COLORS = supportsColor.stdout.level || 0
+
 cli
-  .usage('Usage: pretty [options]')
+  .usage('Usage: ... | pretty [options]')
   .option('t', {
     alias: 'time-stamps',
     default: true,
@@ -38,50 +44,64 @@ cli
     describe: 'TimeStamps zone offset (ex: "America/New_York")',
     type: 'String'
   })
+  .option('l', {
+    alias: 'level',
+    default: 'trace',
+    describe: 'Only show messages at or above the specified level.',
+    type: 'String'
+  })
   .option('depth', {
     default: 4,
     describe: '(passed to util.inspect)'
   })
-  .fail(msg => {
-    cli.showHelp()
-    console.error(chalk.red(`${chalk.bold('>')} ${msg}`))
-    process.exit(0)
+  .option('strict', {
+    default: false,
+    type: 'boolean',
+    describe: 'Suppress all but legal Bunyan JSON log lines'
   })
-  .epilog('Copyright (c) 2017 Jorge Proaño. All rights reserved.')
-  .wrap(termSize().columns)
+  .epilog('Copyright (c) 2018 Jorge Proaño. All rights reserved.')
+  .wrap(Constants.COLUMNS)
   .version()
   .help()
 
-const { timeStamps, stampFormat, depth, timeZone } = cli.argv
-
-if (PIPED) {
-  Constants.DEPTH = depth
-  Constants.TIME_STAMPS = timeStamps
-  Constants.TIME_STAMPS_FORMAT = stampFormat
-  Constants.TIME_STAMPS_ZONE = timeZone
-  attachToEvents()
-  process.stdin.pipe(require('../lib')(process.stdout))
+if (!PIPED) {
+  cli.showHelp()
+  process.exit(0)
 }
 
-function attachToEvents () {
-  process.stdin.on('end', () => process.exit(0))
-  process.on('SIGINT', function () {
-    cleanupAndExit('SIGINT')
-  })
-  process.on('SIGQUIT', function () {
-    cleanupAndExit('SIGQUIT')
-  })
-  process.on('SIGTERM', function () {
-    cleanupAndExit('SIGTERM')
-  })
-  process.on('SIGHUP', function () {
-    cleanupAndExit('SIGHUP')
-  })
-  process.on('SIGBREAK', function () {
-    cleanupAndExit('SIGBREAK')
-  })
-  function cleanupAndExit (signal) {
-    debug(signal)
-    setTimeout(() => process.exit(0), 500)
-  }
+const { timeStamps, stampFormat, depth, timeZone, strict, level } = cli.argv
+
+Constants.STRICT = strict
+Constants.DEPTH = depth
+Constants.MIN_LEVEL = Constants.LEVELS[level.toLowerCase()] || 0
+Constants.TIME_STAMPS = timeStamps
+Constants.TIME_STAMPS_FORMAT = stampFormat
+Constants.TIME_STAMPS_ZONE = timeZone
+
+process.stdin.on('end', () => process.exit(0))
+process.on('SIGINT', function () {
+  cleanupAndExit('SIGINT')
+})
+process.on('SIGQUIT', function () {
+  cleanupAndExit('SIGQUIT')
+})
+process.on('SIGTERM', function () {
+  cleanupAndExit('SIGTERM')
+})
+process.on('SIGHUP', function () {
+  cleanupAndExit('SIGHUP')
+})
+process.on('SIGBREAK', function () {
+  cleanupAndExit('SIGBREAK')
+})
+
+const outputStream = require('../lib')(process.stdout)
+
+process.stdin.pipe(outputStream)
+
+// ────────────────────────────────  private  ──────────────────────────────────
+
+function cleanupAndExit (signal) {
+  debug(signal)
+  setTimeout(() => process.exit(0), 500)
 }
