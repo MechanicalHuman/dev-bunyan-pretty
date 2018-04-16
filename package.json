@@ -1,6 +1,6 @@
 {
   "name": "@mechanicalhuman/bunyan-pretty",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "description": "Pretty format for Bunayn logs, similar to `bunyan -o short` but actually pretty. ",
   "keywords": [
     "bunyan"
@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "chalk": "^2.3.0",
+    "conf": "^1.4.0",
     "debug": "^3.0.1",
     "hanging-indent": "^0.1.1",
     "json-parse-safe": "^1.0.3",
