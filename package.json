@@ -1,6 +1,6 @@
 {
   "name": "@mechanicalhuman/bunyan-pretty",
-  "version": "0.6.1",
+  "version": "1.0.0",
   "description": "Pretty format for Bunayn logs, similar to `bunyan -o short` but actually pretty. ",
   "keywords": [
     "bunyan"
