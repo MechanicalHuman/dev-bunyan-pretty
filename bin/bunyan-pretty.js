@@ -1,90 +1,99 @@
 #! /usr/bin/env node
 'use strict'
 
-// process.env.DEBUG = 'mech*'
+process.env.DEBUG = 'mech*'
 
 const cli = require('yargs')
 const updateNotifier = require('update-notifier')
-
-const Constants = require('../lib/constants')
-const pkg = require('../package.json')
-
 const debug = require('debug')('mech:logger:cli')
 
-const PIPED = !process.stdin.isTTY
+const Constants = require('../lib/constants')
+const Config = require('../lib/config')
+const pkg = require('../package.json')
 
 updateNotifier({ pkg }).notify()
 
+debug('???')
+
 cli
   .usage('Usage: ... | pretty [options]')
-  .option('t', {
-    alias: 'time-stamps',
-    default: true,
+
+  .option('time-stamps', {
+    group: 'Headers',
+    default: Config.timeStamps,
     describe: 'Print TimeStamps',
     type: 'boolean'
   })
-  .option('f', {
-    alias: 'stamp-format',
-    default: 'YYYY-MM-DD-HH:mm:ss',
-    describe: 'TimeStamps format (passed to moment.format)',
+
+  .option('stamps-format', {
+    alias: 'f',
+    group: 'Headers',
+    default: Config.stampsFormat,
+    describe: 'TimeStamps format',
     type: 'String'
   })
-  .option('z', {
-    alias: 'time-zone',
-    default: Constants.TIME_STAMPS_ZONE || 'UTC',
-    describe: 'TimeStamps zone offset (ex: "America/New_York")',
+
+  .option('stamps-time-zone', {
+    alias: 'tz',
+    group: 'Headers',
+    default: Config.stampsTimeZone,
+    describe: 'TimeStamps zone offset.',
     type: 'String'
   })
-  .option('l', {
-    alias: 'level',
-    default: 'trace',
-    describe: 'Only show messages at or above the specified level.',
-    type: 'String'
-  })
-  .option('d', {
-    alias: 'depth',
-    default: 4,
-    describe: '(passed to util.inspect)'
-  })
-  .option('a', {
-    alias: 'max-array-length',
-    default: 100,
-    describe: '(passed to util.inspect)'
-  })
+
   .option('strict', {
+    group: 'Filter',
+    default: Config.strict,
+    describe: 'Suppress all but legal Bunyan JSON log lines',
+    type: 'boolean'
+  })
+
+  .option('level', {
+    alias: 'l',
+    group: 'Filter',
+    choices: ['trace', 'debug', 'info', 'warn', 'fatal'],
+    describe: 'Only show messages at or above the specified level.',
+    type: 'string'
+  })
+
+  .option('depth', {
+    group: 'Inspect',
+    describe: '(passed to util.inspect)',
+    default: Config.depth,
+    type: 'number'
+  })
+
+  .option('max-array-length', {
+    group: 'Inspect',
+    describe: '(passed to util.inspect)',
+    default: Config.maxArrayLength,
+    type: 'number'
+  })
+
+  .option('force-color', {
     default: false,
     type: 'boolean',
-    describe: 'Suppress all but legal Bunyan JSON log lines'
+    describe: 'Force color output'
   })
+
   .epilog('Copyright (c) 2018 Jorge Proaño. All rights reserved.')
-  .wrap(Constants.COLUMNS)
+  .wrap(Config.columns)
   .version()
   .help()
 
-if (!PIPED) {
+if (!Constants.PIPED) {
   cli.showHelp()
   process.exit(0)
 }
 
 process.stdin.on('end', () => process.exit(0))
-process.on('SIGINT', function () {
-  cleanupAndExit('SIGINT')
-})
-process.on('SIGQUIT', function () {
-  cleanupAndExit('SIGQUIT')
-})
-process.on('SIGTERM', function () {
-  cleanupAndExit('SIGTERM')
-})
-process.on('SIGHUP', function () {
-  cleanupAndExit('SIGHUP')
-})
-process.on('SIGBREAK', function () {
-  cleanupAndExit('SIGBREAK')
-})
+process.on('SIGINT', () => cleanupAndExit('SIGINT'))
+process.on('SIGQUIT', () => cleanupAndExit('SIGQUIT'))
+process.on('SIGTERM', () => cleanupAndExit('SIGTERM'))
+process.on('SIGHUP', () => cleanupAndExit('SIGHUP'))
+process.on('SIGBREAK', () => cleanupAndExit('SIGBREAK'))
 
 const outputStream = require('../lib')(process.stdout, cli.argv)
-
 process.stdin.pipe(outputStream)
 
 // ────────────────────────────────  private  ──────────────────────────────────
