@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 'use strict'
 
-process.env.DEBUG = 'mech*'
+// process.env.DEBUG = 'mech*'
 
 const cli = require('yargs')
 const updateNotifier = require('update-notifier')
@@ -12,8 +12,6 @@ const Config = require('../lib/config')
 const pkg = require('../package.json')
 
 updateNotifier({ pkg }).notify()
-
-debug('???')
 
 cli
   .usage('Usage: ... | pretty [options]')
