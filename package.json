@@ -30,7 +30,6 @@
     "chalk": "^2.3.0",
     "conf": "^1.4.0",
     "debug": "^3.0.1",
-    "hanging-indent": "^0.1.1",
     "ipaddr.js": "^1.7.0",
     "lodash": "^4.17.4",
     "moment-timezone": "^0.5.14",
