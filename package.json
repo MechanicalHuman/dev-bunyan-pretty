@@ -1,7 +1,7 @@
 {
   "name": "@mechanicalhuman/bunyan-pretty",
   "version": "1.1.4",
-  "description": "Pretty format for Bunayn logs, similar to `bunyan -o short` but actually pretty. ",
+  "description": "Pretty format for Bunyan/Pino logs, similar to `bunyan -o short` but actually pretty. ",
   "keywords": [
     "bunyan"
   ],
@@ -9,40 +9,51 @@
   "bugs": {
     "url": "https://github.com/MechanicalHuman/dev-bunyan-pretty/issues"
   },
-  "license": "MIT",
-  "author": "Jorge Proaño <jorge@hiddennodeproblem.com> (https://www.hidden-node-problem.com)",
-  "main": "lib/index.js",
-  "bin": {
-    "pretty": "./bin/bunyan-pretty.js"
-  },
-  "directories": {
-    "lib": "lib"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MechanicalHuman/dev-bunyan-pretty.git"
   },
+  "license": "MIT",
+  "author": "Jorge Proaño <jorge@hiddennodeproblem.com> (https://www.hidden-node-problem.com)",
+  "main": "lib/index.js",
+  "bin": {
+    "pretty": "./bin/pretty.js"
+  },
+  "directories": {
+    "lib": "lib"
+  },
   "scripts": {
-    "save": "git step && np",
+    "precommit": "lint-staged",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "dependencies": {
-    "chalk": "^2.3.0",
-    "conf": "^1.4.0",
+    "chalk": "^2.4.1",
+    "conf": "^2.0.0",
     "debug": "^3.0.1",
     "ipaddr.js": "^1.7.0",
-    "lodash": "^4.17.4",
-    "moment-timezone": "^0.5.14",
+    "lodash": "^4.17.10",
+    "moment-timezone": "^0.5.17",
     "parse-headers": "^2.0.1",
-    "pretty-ms": "^3.1.0",
+    "pretty-ms": "^3.2.0",
     "split2": "^2.1.1",
     "string-length": "^2.0.0",
-    "supports-color": "^5.1.0",
+    "supports-color": "^5.4.0",
     "term-size": "^1.2.0",
-    "update-notifier": "^2.2.0",
-    "yargs": "^10.1.2"
+    "update-notifier": "^2.5.0",
+    "yargs": "^11.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.1.0",
+    "prettier": "^1.9.2",
+    "sort-package-json": "^1.15.0"
+  },
   "publishConfig": {
     "access": "public"
   }
