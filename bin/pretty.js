@@ -5,7 +5,7 @@
 
 const cli = require('yargs')
 const updateNotifier = require('update-notifier')
-const debug = require('debug')('mech:logger:cli')
+const debug = require('debug')('mech:pretty:cli')
 
 const Constants = require('../lib/constants')
 const Config = require('../lib/config')
@@ -49,7 +49,7 @@ cli
   .option('level', {
     alias: 'l',
     group: 'Filter',
-    choices: ['trace', 'debug', 'info', 'warn', 'fatal'],
+    choices: ['trace', 'debug', 'info', 'error', 'warn', 'fatal'],
     describe: 'Only show messages at or above the specified level.',
     type: 'string'
   })
@@ -90,6 +90,8 @@ process.on('SIGQUIT', () => cleanupAndExit('SIGQUIT'))
 process.on('SIGTERM', () => cleanupAndExit('SIGTERM'))
 process.on('SIGHUP', () => cleanupAndExit('SIGHUP'))
 process.on('SIGBREAK', () => cleanupAndExit('SIGBREAK'))
+
+debug('args', cli.argv)
 
 const outputStream = require('../lib')(process.stdout, cli.argv)
 process.stdin.pipe(outputStream)

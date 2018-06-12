@@ -3,10 +3,5 @@
         {
             "path": "."
         }
-    ],
-    "MultiFormat": {
-        "formatters": {
-            "javascript (babel)": ["prettier %file --write", "eslint %file --fix"]
-        }
-    }
+    ]
 }
