@@ -10,19 +10,7 @@ Pretty format for Bunyan/Pino logs, similar to `bunyan -o short` but actually pr
 
 <!--/@-->
 
-![Pretty with timestamps](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
-
-## Table of Contents
-
--   [Installation](#installation)
--   [Usage](#usage)
--   [Options](#options)
-    -   -   [Notes:](#notes)
--   [Programatic Interface](#programatic-interface)
-    -   -   [Default Options:](#default-options)
-        -   [Example:](#example)
--   [License](#license)
--   [Dependencies](#dependencies)
+![hero image](https://raw.githubusercontent.com/MechanicalHuman/dev-bunyan-pretty/master/img/pretty-nostamps.png)
 
 <!--@installation()-->
 
@@ -97,7 +85,7 @@ You can use pretty as a writable stream from inside your NodeJS scripts. Probabl
 const pretty = require('@mechanicalhuman/bunyan-pretty')
 ```
 
-#### Default Options:
+### Default Options:
 
 The options object passed to `pretty` will merge with the default options.
 
@@ -114,7 +102,7 @@ const defaultOptions = {
 }
 ```
 
-#### Example:
+### Example:
 
 ```js
 const pretty = require('@mechanicalhuman/bunyan-pretty')
@@ -129,32 +117,10 @@ const log = bunyan.createLogger({
 log.info('hello world')
 ```
 
-![Pretty with timestamps](https://raw.githubusercontent.com/username/projectname/branch/path/to/img.png)
-
 <!--@license()-->
 
 ## License
 
 [MIT](./LICENSE) © [Jorge Proaño](https://www.hidden-node-problem.com)
-
-<!--/@-->
-
-<!--@dependencies()-->
-
-## <a name="dependencies">Dependencies</a>
-
--   [chalk](https://github.com/chalk/chalk): Terminal string styling done right
--   [debug](https://github.com/visionmedia/debug): small debugging utility
--   [ipaddr.js](https://github.com/whitequark/ipaddr.js): A library for manipulating IPv4 and IPv6 addresses in JavaScript.
--   [lodash](https://github.com/lodash/lodash): Lodash modular utilities.
--   [moment-timezone](https://github.com/moment/moment-timezone): Parse and display moments in any timezone.
--   [parse-headers](https://github.com/kesla/parse-headers): Parse http headers, works with browserify/xhr
--   [pretty-ms](https://github.com/sindresorhus/pretty-ms): Convert milliseconds to a human readable string: `1337000000` → `15d 11h 23m 20s`
--   [split2](https://github.com/mcollina/split2): split a Text Stream into a Line Stream, using Stream 3
--   [string-length](https://github.com/sindresorhus/string-length): Get the real length of a string - by correctly counting astral symbols and ignoring ansi escape codes
--   [supports-color](https://github.com/chalk/supports-color): Detect whether a terminal supports color
--   [term-size](https://github.com/sindresorhus/term-size): Reliably get the terminal window size (columns & rows)
--   [update-notifier](https://github.com/yeoman/update-notifier): Update notifications for your CLI app
--   [yargs](https://github.com/yargs/yargs): yargs the modern, pirate-themed, successor to optimist.
 
 <!--/@-->
