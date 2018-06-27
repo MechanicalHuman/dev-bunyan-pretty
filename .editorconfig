@@ -11,8 +11,5 @@ insert_final_newline = true
 [*.md]
 trim_trailing_whitespace = false
 
-[*.pug]
-indent_size = 4
-
-[*.js]
+[*.{js,json}]
 indent_size = 2

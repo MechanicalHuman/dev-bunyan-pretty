@@ -1,7 +1,25 @@
 {
     "folders": [
         {
-            "path": "."
+            "path": ".",
+            "folder_exclude_patterns": [".vscode", "node_modules"],
+            "file_exclude_patterns": [],
+            "follow_symlinks": true
+        },
+        {
+            "name": "📦 node_modules",
+            "path": "node_modules",
+            "folder_exclude_patterns": [],
+            "file_exclude_patterns": [],
+            "follow_symlinks": true
         }
-    ]
+    ],
+    "settings": {
+        "index_exclude_patterns": ["*.log", "*.min.*", "*/build/**"]
+    },
+    "build_systems": [],
+    "autoFormatter": {
+        "format_on_save": true,
+        "syntax_map": {}
+    }
 }

@@ -7,10 +7,6 @@
         {
             "files": ".prettierrc",
             "options": { "parser": "json" }
-        },
-        {
-            "files": ".eslintrc",
-            "options": { "parser": "json" }
         }
     ]
 }
