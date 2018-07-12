@@ -1,15 +1,19 @@
 #! /usr/bin/env node
 'use strict'
 
+process.env.SUPPRESS_NO_CONFIG_WARNING = 'y'
+
 // process.env.DEBUG = 'mech*'
 
 const cli = require('yargs')
 const updateNotifier = require('update-notifier')
 const debug = require('debug')('mech:pretty:cli')
-
-const Constants = require('../lib/constants')
-const Config = require('../lib/config')
+const path = require('path')
+const { util } = require('config')
 const pkg = require('../package.json')
+const { getColumns } = require('../lib/utils')
+
+const config = util.loadFileConfigs(path.join(__dirname, 'config'))
 
 updateNotifier({ pkg }).notify()
 
@@ -18,7 +22,7 @@ cli
 
   .option('time-stamps', {
     group: 'Headers',
-    default: Config.timeStamps,
+    default: config.timeStamps,
     describe: 'Print TimeStamps',
     type: 'boolean'
   })
@@ -26,7 +30,7 @@ cli
   .option('stamps-format', {
     alias: 'f',
     group: 'Headers',
-    default: Config.stampsFormat,
+    default: config.stampsFormat,
     describe: 'TimeStamps format',
     type: 'String'
   })
@@ -34,14 +38,14 @@ cli
   .option('stamps-time-zone', {
     alias: 'tz',
     group: 'Headers',
-    default: Config.stampsTimeZone,
+    default: config.stampsTimeZone,
     describe: 'TimeStamps zone offset.',
     type: 'String'
   })
 
   .option('strict', {
     group: 'Filter',
-    default: Config.strict,
+    default: config.strict,
     describe: 'Suppress all but legal Bunyan JSON log lines',
     type: 'boolean'
   })
@@ -57,29 +61,29 @@ cli
   .option('depth', {
     group: 'Inspect',
     describe: '(passed to util.inspect)',
-    default: Config.depth,
+    default: config.depth,
     type: 'number'
   })
 
   .option('max-array-length', {
     group: 'Inspect',
     describe: '(passed to util.inspect)',
-    default: Config.maxArrayLength,
+    default: config.maxArrayLength,
     type: 'number'
   })
 
   .option('force-color', {
-    default: false,
+    default: config.forceColor,
     type: 'boolean',
     describe: 'Force color output'
   })
 
   .epilog('Copyright (c) 2018 Jorge Proaño. All rights reserved.')
-  .wrap(Config.columns)
+  .wrap(getColumns())
   .version()
   .help()
 
-if (!Constants.PIPED) {
+if (process.stdin.isTTY === false) {
   cli.showHelp()
   process.exit(0)
 }

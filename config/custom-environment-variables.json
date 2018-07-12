@@ -1,0 +1,8 @@
+{
+  "forceColor": {
+    "__name": "FORCE_COLOR",
+    "__format": "json"
+  },
+  "stampsFormat": "PRETTY_STAMPS_FORMAT",
+  "stampsTimeZone": "PRETTY_TIME_ZONE"
+}

@@ -67,6 +67,8 @@ The tool reads from the `STDIN` and is installed as the cmd `pretty` in the shel
 -   The`--level` choices are: "trace", "debug", "info", "error", "warn", "fatal"
 -   The`--stamps-format` value is passed directly to [`moment.format()`](https://momentjs.com/docs/#/displaying/format/)
 -   You force the colored output using the env variable: `FORCE_COLOR=1`
+-   You can pass the time stamps zone offset via the env variable: `PRETTY_TZ`
+-   You can pass the time stamps format via the env variable: `PRETTY_STAMPS_FORMAT`
 
 ## Programatic Interface
 
