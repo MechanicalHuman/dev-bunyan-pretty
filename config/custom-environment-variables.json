@@ -4,5 +4,5 @@
     "__format": "json"
   },
   "stampsFormat": "PRETTY_STAMPS_FORMAT",
-  "stampsTimeZone": "PRETTY_TIME_ZONE"
+  "stampsTimeZone": "PRETTY_TZ"
 }
