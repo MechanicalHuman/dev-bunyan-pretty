@@ -13,7 +13,7 @@ const { util } = require('config')
 const pkg = require('../package.json')
 const { getColumns } = require('../lib/utils')
 
-const config = util.loadFileConfigs(path.join(__dirname, 'config'))
+const config = util.loadFileConfigs(path.resolve(__dirname, '..', 'config'))
 
 updateNotifier({ pkg }).notify()
 
