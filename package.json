@@ -1,6 +1,6 @@
 {
   "name": "@mechanicalhuman/bunyan-pretty",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Pretty format for Bunyan/Pino logs, similar to `bunyan -o short` but actually pretty. ",
   "keywords": [
     "bunyan",
