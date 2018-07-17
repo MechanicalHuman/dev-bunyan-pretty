@@ -1,6 +1,6 @@
 {
-  "forceColor": {
-    "__name": "FORCE_COLOR",
+  "termColors": {
+    "__name": "PRETTY_TERM_COLORS",
     "__format": "json"
   },
   "stampsFormat": "PRETTY_STAMPS_FORMAT",
