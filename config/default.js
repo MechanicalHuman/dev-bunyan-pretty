@@ -1,8 +1,15 @@
+const { supportsColor } = require('supports-color')
+const env = process.env
+
 module.exports = {
   level: 10,
   strict: false,
-  forceColor: false,
-  colorLevel: 0,
+  forceColor:
+    'FORCE_COLOR' in env
+      ? env.FORCE_COLOR.length === 0 || parseInt(env.FORCE_COLOR, 10) !== 0
+      : false,
+  termColors: false,
+  colorLevel: supportsColor().level,
   depth: 4,
   maxArrayLength: 100,
   printHost: false,
