@@ -3,17 +3,18 @@
 
 process.env.SUPPRESS_NO_CONFIG_WARNING = 'y'
 
-// process.env.DEBUG = 'mech*'
+// process.env.DEBUG = 'mech:pretty*,-mech:pretty:record'
 
 const cli = require('yargs')
 const updateNotifier = require('update-notifier')
 const debug = require('debug')('mech:pretty:cli')
-const path = require('path')
 const { util } = require('config')
+const fp = require('lodash/fp')
 const pkg = require('../package.json')
 const { getColumns } = require('../lib/utils')
+const CONSTANTS = require('../lib/constants')
 
-const config = util.loadFileConfigs(path.resolve(__dirname, '..', 'config'))
+const config = util.toObject(util.loadFileConfigs(CONSTANTS.CONFIG_DIR))
 
 updateNotifier({ pkg }).notify()
 
@@ -88,21 +89,29 @@ if (process.stdin.isTTY === false) {
   process.exit(0)
 }
 
-process.stdin.on('end', () => process.exit(0))
+process.stdin.on('end', exit)
 process.on('SIGINT', () => cleanupAndExit('SIGINT'))
 process.on('SIGQUIT', () => cleanupAndExit('SIGQUIT'))
 process.on('SIGTERM', () => cleanupAndExit('SIGTERM'))
 process.on('SIGHUP', () => cleanupAndExit('SIGHUP'))
 process.on('SIGBREAK', () => cleanupAndExit('SIGBREAK'))
 
-debug('args', cli.argv)
+const argv = fp.pipe(
+  argv => fp.pick(CONSTANTS.CONFIG_FILEDS, argv),
+  argv => util.diffDeep(config, argv)
+)(cli.argv)
 
-const outputStream = require('../lib')(process.stdout, cli.argv)
+const outputStream = require('../lib')(process.stdout, argv)
 process.stdin.pipe(outputStream)
 
 // ────────────────────────────────  private  ──────────────────────────────────
 
 function cleanupAndExit (signal) {
-  debug(signal)
+  debug('Recieved: %s. Clossing on 500ms', signal)
   setTimeout(() => process.exit(0), 500)
+}
+
+function exit () {
+  debug('stdin ended, closing the app')
+  process.exit(0)
 }
