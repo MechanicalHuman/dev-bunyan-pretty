@@ -32,7 +32,7 @@
     "test": "run-s test:* -sn",
     "test:depcheck": "depcheck --ignores=husky,config --ignore-bin-package",
     "test:lint": "eslint --ignore-path .gitignore '**/*.js'",
-    "test:outdated": "npm outdated --long",
+    "test:outdated": "npm outdated --long || true",
     "todos": "leasot './**/*' -Sx -i './node_modules/**/*'"
   },
   "dependencies": {
@@ -53,10 +53,10 @@
   },
   "devDependencies": {
     "depcheck": "^0.6.9",
-    "eslint": "^5.0.1",
+    "eslint": "^4.19.1",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
     "husky": "^0.14.3",
