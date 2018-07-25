@@ -3,8 +3,6 @@
 
 process.env.SUPPRESS_NO_CONFIG_WARNING = 'y'
 
-// process.env.DEBUG = 'mech:pretty*,-mech:pretty:record'
-
 const cli = require('yargs')
 const updateNotifier = require('update-notifier')
 const debug = require('debug')('mech:pretty:cli')
@@ -84,7 +82,7 @@ cli
   .version()
   .help()
 
-if (process.stdin.isTTY === false) {
+if (process.stdin.isTTY === true) {
   cli.showHelp()
   process.exit(0)
 }
