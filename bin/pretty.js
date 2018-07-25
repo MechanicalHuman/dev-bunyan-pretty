@@ -42,6 +42,13 @@ cli
     type: 'String'
   })
 
+  .option('print-host', {
+    group: 'Headers',
+    default: false,
+    describe: 'prepends the host to the log line, useful for combined streams',
+    type: 'boolean'
+  })
+
   .option('strict', {
     group: 'Filter',
     default: config.strict,

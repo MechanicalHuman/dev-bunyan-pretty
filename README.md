@@ -32,7 +32,7 @@ The tool reads from the `STDIN` and is installed as the cmd `pretty` in the shel
     node index.js | pretty [OPTIONS]
     ```
 
--   Or just feed it an already exisitng file.
+-   Or just feed it an already existing file.
 
     ```sh
     pretty [OPTIONS] < input.log
@@ -49,6 +49,7 @@ The tool reads from the `STDIN` and is installed as the cmd `pretty` in the shel
     --time-stamps                   Print TimeStamps.                   [boolean][default: true]
     --stamps-format, -f             TimeStamps format.                  [YYYY-MM-DD-HH:mm:ss]
     --stamps-time-zone, --tz        TimeStamps zone offset.             [default: "Etc/UTC"]
+    --print-host                    Prepends the host to the log line.  [boolean][default: false]
 
     Filter
     --strict                        Only show "legal" log lines.        [boolean][default: false]
@@ -93,14 +94,20 @@ The options object passed to `pretty` will merge with the default options.
 
 ```js
 const defaultOptions = {
-    strict: false,
     level: 0, // Named level or bunyan/pino level value
-    forceColor: false,
+    strict: false,
+
+    forceColor: false
+    termColors: false, // trust the term colors, not the stream ones
+    colorLevel: 2 // based on your terminal (uses supports-color)
+
+    depth: 4,
+    maxArrayLength: 100,
+
+    printHost: false,
     timeStamps: true,
     stampsFormat: 'YYYY-MM-DD-HH:mm:ss',
     stampsTimeZone: moment.tz.guess(), // Based on your Locale
-    depth: 4,
-    maxArrayLength: 100
 }
 ```
 
