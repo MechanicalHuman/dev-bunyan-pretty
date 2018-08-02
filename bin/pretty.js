@@ -14,7 +14,10 @@ const CONSTANTS = require('../lib/constants')
 
 const config = util.toObject(util.loadFileConfigs(CONSTANTS.CONFIG_DIR))
 
-updateNotifier({ pkg }).notify()
+updateNotifier({ pkg }).notify({
+  isGlobal: true,
+  shouldNotifyInNpmScript: true
+})
 
 cli
   .usage('Usage: ... | pretty [options]')

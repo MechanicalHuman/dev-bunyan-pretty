@@ -1,26 +1,28 @@
-<!--@h1([pkg.name])-->
+<!-- TITLE/ -->
 
-# @mechanicalhuman/bunyan-pretty
+<h1>@mechanicalhuman/bunyan-pretty</h1>
 
-<!--/@-->
+<!-- /TITLE -->
 
-<!--@pkg.description-->
+<!-- DESCRIPTION/ -->
 
-Pretty format for Bunyan/Pino logs, similar to `bunyan -o short` but actually pretty.
+Prettifies NDJSON (Newline Delimited JSON) logs, like `bunyan -o short` but actually pretty.
 
-<!--/@-->
+<!-- /DESCRIPTION -->
 
 ![hero image](https://raw.githubusercontent.com/MechanicalHuman/dev-bunyan-pretty/master/img/pretty-nostamps.png)
 
-<!--@installation()-->
+<!-- INSTALL/ -->
 
-## Installation
+<h2>Install</h2>
 
-```sh
-npm install --save @mechanicalhuman/bunyan-pretty
-```
+<a href="https://npmjs.com" title="npm is a package manager for javascript"><h3>NPM</h3></a><ul>
 
-<!--/@-->
+<li>Install: <code>npm install --save @mechanicalhuman/bunyan-pretty</code></li>
+<li>Executable: <code>pretty</code></li>
+<li>Module: <code>require('@mechanicalhuman/bunyan-pretty')</code></li></ul>
+
+<!-- /INSTALL -->
 
 ## Usage
 
@@ -126,10 +128,16 @@ const log = bunyan.createLogger({
 log.info('hello world')
 ```
 
-<!--@license()-->
+<!-- LICENSE/ -->
 
-## License
+<h2>License</h2>
 
-[MIT](./LICENSE) © [Jorge Proaño](https://www.hidden-node-problem.com)
+Unless stated otherwise all works are:
 
-<!--/@-->
+<ul><li>Copyright &copy; <a href="http://www.hidden-node-problem.com">Jorge Proaño</a></li></ul>
+
+and licensed under:
+
+<ul><li><a href="http://spdx.org/licenses/MIT.html">MIT License</a></li></ul>
+
+<!-- /LICENSE -->
