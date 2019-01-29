@@ -1,3 +1,9 @@
+# @mechanicalhuman/bunyan-pretty
+
+![hero image](https://raw.githubusercontent.com/MechanicalHuman/dev-bunyan-pretty/master/img/pretty-nostamps.png)
+
+> Prettifies NDJSON (Newline Delimited JSON) logs, like \`bunyan -o short\` but actually pretty.
+
 <!-- TITLE/ -->
 
 <h1>@mechanicalhuman/bunyan-pretty</h1>
@@ -10,8 +16,6 @@ Prettifies NDJSON (Newline Delimited JSON) logs, like `bunyan -o short` but actu
 
 <!-- /DESCRIPTION -->
 
-![hero image](https://raw.githubusercontent.com/MechanicalHuman/dev-bunyan-pretty/master/img/pretty-nostamps.png)
-
 <!-- INSTALL/ -->
 
 <h2>Install</h2>
@@ -23,6 +27,8 @@ Prettifies NDJSON (Newline Delimited JSON) logs, like `bunyan -o short` but actu
 <li>Module: <code>require('@mechanicalhuman/bunyan-pretty')</code></li></ul>
 
 <!-- /INSTALL -->
+
+---
 
 ## Usage
 
