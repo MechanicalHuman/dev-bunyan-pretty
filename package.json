@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MechanicalHuman/dev-bunyan-pretty.git"
+    "url": "git@github.com:MechanicalHuman/dev-bunyan-pretty.git"
   },
   "license": "MIT",
   "author": "Jorge Proaño <jorge@hiddennodeproblem.com> (http://www.hidden-node-problem.com)",
   "contributors": [
-    "Jorge Proaño <jorge@hiddennodeproblem.com> (http://www.hidden-node-problem.com)"
+    "Jorge Proaño <jorge@hiddennodeproblem.com>"
   ],
   "main": "lib/index.js",
   "bin": {
@@ -27,52 +27,63 @@
     "lib": "lib"
   },
   "scripts": {
-    "precommit": "npm run docs && lint-staged",
-    "docs": "run-s docs:** -sn",
-    "postdocs": "git add README.md AUTHORS LICENSE package.json",
-    "docs:authors": "git log --format='%aN <%aE>' | sort -f | uniq > AUTHORS",
-    "docs:compile": "projectz compile",
-    "prepush": "npm run test",
-    "test": "run-s test:* -sn",
+    "docs": "package-scripts compile",
+    "lint": "eslint --ignore-path .gitignore '**/*.js'",
+    "test": "run-s test:* lint -sn",
     "test:depcheck": "depcheck --ignores=husky,config --ignore-bin-package",
-    "test:lint": "eslint --ignore-path .gitignore '**/*.js'",
     "test:outdated": "npm outdated --long || true",
-    "todos": "leasot './**/*' -Sx -i './node_modules/**/*'"
+    "todos": "package-scripts todos"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "package-scripts compile; lint-staged",
+      "pre-push": "npm run test"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ],
+    "*.{json,md,css}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "@hnp/cz"
+    }
   },
   "dependencies": {
-    "chalk": "^2.4.1",
-    "config": "^2.0.1",
-    "debug": "^3.1.0",
+    "chalk": "^2.4.2",
+    "config": "^3.0.1",
+    "debug": "^4.1.1",
     "ipaddr.js": "^1.8.1",
-    "lodash": "^4.17.10",
-    "moment-timezone": "^0.5.21",
+    "lodash": "^4.17.11",
+    "moment-timezone": "^0.5.23",
     "parse-headers": "^2.0.1",
-    "pretty-ms": "^3.2.0",
-    "split2": "^2.2.0",
+    "pretty-ms": "^4.0.0",
+    "split2": "^3.1.0",
     "string-length": "^2.0.0",
-    "supports-color": "^5.4.0",
+    "supports-color": "^6.1.0",
     "term-size": "^1.2.0",
     "update-notifier": "^2.5.0",
-    "yargs": "^12.0.1"
+    "yargs": "^12.0.5"
   },
   "devDependencies": {
-    "depcheck": "^0.6.9",
-    "eslint": "^5.2.0",
-    "eslint-config-standard": "12.0.0-alpha.0",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-node": "^7.0.1",
-    "eslint-plugin-promise": "^3.8.0",
-    "eslint-plugin-standard": "^3.1.0",
-    "husky": "^0.14.3",
-    "leasot": "^6.3.0",
-    "lint-staged": "^7.2.0",
-    "npm-run-all": "^4.1.3",
-    "prettier": "^1.14.0",
-    "projectz": "^1.4.0",
-    "sort-package-json": "^1.15.0"
+    "@hnp/cz": "^1.0.7",
+    "@hnp/package-scripts": "^1.0.10",
+    "depcheck": "^0.7.1",
+    "eslint": "^5.12.1",
+    "eslint-config-hnp": "^1.0.7",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.16.1"
   },
   "publishConfig": {
     "access": "public"
-  },
-  "maintainers": []
+  }
 }
