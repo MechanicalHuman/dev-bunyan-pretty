@@ -11,6 +11,9 @@ const fp = require('lodash/fp')
 const pkg = require('../package.json')
 const { getColumns } = require('../lib/utils')
 const CONSTANTS = require('../lib/constants')
+const pump = require('pump')
+const split = require('split2')
+const { Transform } = require('readable-stream')
 
 const config = util.toObject(util.loadFileConfigs(CONSTANTS.CONFIG_DIR))
 
@@ -34,7 +37,7 @@ cli
     group: 'Headers',
     default: config.stampsFormat,
     describe: 'TimeStamps format',
-    type: 'String'
+    type: 'string'
   })
 
   .option('stamps-time-zone', {
@@ -42,7 +45,7 @@ cli
     group: 'Headers',
     default: config.stampsTimeZone,
     describe: 'TimeStamps zone offset.',
-    type: 'String'
+    type: 'string'
   })
 
   .option('print-host', {
@@ -104,22 +107,39 @@ process.on('SIGTERM', () => cleanupAndExit('SIGTERM'))
 process.on('SIGHUP', () => cleanupAndExit('SIGHUP'))
 process.on('SIGBREAK', () => cleanupAndExit('SIGBREAK'))
 
-const argv = fp.pipe(
-  argv => fp.pick(CONSTANTS.CONFIG_FILEDS, argv),
+const parser = fp.pipe(
+  fp.pick(CONSTANTS.CONFIG_FILEDS),
   argv => util.diffDeep(config, argv)
-)(cli.argv)
+)
 
-const outputStream = require('../lib')(process.stdout, argv)
-process.stdin.pipe(outputStream)
+const opts = parser(cli.argv)
+const pretty = require('../lib')(opts)
 
+const prettyTransport = new Transform({
+  objectMode: true,
+  transform(chunk, enc, cb) {
+    const line = pretty(chunk.toString())
+    if (line === undefined) return cb()
+    cb(undefined, line)
+  }
+})
+
+pump(process.stdin, split(), prettyTransport, process.stdout)
+
+// // https://github.com/pinojs/pino/pull/358
+// if (!process.stdin.isTTY && !fs.fstatSync(process.stdin.fd).isFile()) {
+//   process.once('SIGINT', function noOp () {})
+// } else {
+//   process.on('SIGINT', () => cleanupAndExit('SIGINT'))
+// }
 // ────────────────────────────────  private  ──────────────────────────────────
 
-function cleanupAndExit (signal) {
-  debug('Recieved: %s. Clossing on 500ms', signal)
+function cleanupAndExit(signal = 'NULL') {
+  debug('Received: %s. Clossing on 500ms', signal)
   setTimeout(() => process.exit(0), 500)
 }
 
-function exit () {
+function exit() {
   debug('stdin ended, closing the app')
   process.exit(0)
 }

@@ -38,6 +38,17 @@
       "pre-commit": "package-scripts compile; lint-staged"
     }
   },
+  "lint-staged": {
+    "*.{json,md,js}": [
+      "prettier --write",
+      "git add"
+    ],
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "tslint --fix",
+      "git add"
+    ]
+  },
   "config": {
     "commitizen": {
       "path": "@hnp/cz"
@@ -76,16 +87,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": [
-      "prettier --write",
-      "tslint --fix",
-      "git add"
-    ],
-    "*.{json,md,js}": [
-      "prettier --write",
-      "git add"
-    ]
   }
 }
