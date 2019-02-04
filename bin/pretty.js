@@ -108,7 +108,7 @@ process.on('SIGHUP', () => cleanupAndExit('SIGHUP'))
 process.on('SIGBREAK', () => cleanupAndExit('SIGBREAK'))
 
 const parser = fp.pipe(
-  fp.pick(CONSTANTS.CONFIG_FILEDS),
+  fp.pick(CONSTANTS.CONFIG_FIELDS),
   argv => util.diffDeep(config, argv)
 )
 
@@ -117,7 +117,7 @@ const pretty = require('../lib')(opts)
 
 const prettyTransport = new Transform({
   objectMode: true,
-  transform(chunk, enc, cb) {
+  transform (chunk, _enc, cb) {
     const line = pretty(chunk.toString())
     if (line === undefined) return cb()
     cb(undefined, line)
@@ -126,20 +126,14 @@ const prettyTransport = new Transform({
 
 pump(process.stdin, split(), prettyTransport, process.stdout)
 
-// // https://github.com/pinojs/pino/pull/358
-// if (!process.stdin.isTTY && !fs.fstatSync(process.stdin.fd).isFile()) {
-//   process.once('SIGINT', function noOp () {})
-// } else {
-//   process.on('SIGINT', () => cleanupAndExit('SIGINT'))
-// }
 // ────────────────────────────────  private  ──────────────────────────────────
 
-function cleanupAndExit(signal = 'NULL') {
+function cleanupAndExit (signal = 'NULL') {
   debug('Received: %s. Clossing on 500ms', signal)
   setTimeout(() => process.exit(0), 500)
 }
 
-function exit() {
+function exit () {
   debug('stdin ended, closing the app')
   process.exit(0)
 }

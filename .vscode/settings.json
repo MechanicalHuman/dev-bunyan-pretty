@@ -2,5 +2,6 @@
   "eslint.enable": true,
   "editor.formatOnSave": true,
   "prettier.eslintIntegration": true,
-  "prettier.tslintIntegration": true
+  "prettier.tslintIntegration": true,
+  "cSpell.words": ["ipaddr"]
 }

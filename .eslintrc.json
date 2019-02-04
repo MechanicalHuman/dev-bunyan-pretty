@@ -1,3 +1,8 @@
 {
-  "extends": "eslint-config-hnp"
+  "extends": "eslint-config-hnp",
+  "rules": {
+    "lodash-fp/use-fp": "warn",
+    "lodash-fp/no-chain": "warn",
+    "lodash-fp/consistent-name": "off"
+  }
 }
