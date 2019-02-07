@@ -1,30 +1,36 @@
 #! /usr/bin/env node
 'use strict'
 
-process.env.SUPPRESS_NO_CONFIG_WARNING = 'y'
-
-const cli = require('yargs')
+const yargs = require('yargs')
 const updateNotifier = require('update-notifier')
-const debug = require('debug')('mech:pretty:cli')
-const { util } = require('config')
-const fp = require('lodash/fp')
-const pkg = require('../package.json')
-const { getColumns } = require('../lib/utils')
-const CONSTANTS = require('../lib/constants')
+const pump = require('pump')
+const split = require('split2')
+const { Transform } = require('stream')
+const moment = require('moment-timezone')
+const chalk = require('chalk')
 
-const config = util.toObject(util.loadFileConfigs(CONSTANTS.CONFIG_DIR))
+const debug = require('debug')('mech:pretty:cli')
+const pkg = require('../package.json')
+const { getColumns, coerceLevel } = require('../lib/utils')
+const { defaultConfig, asOptions } = require('../lib/config')
 
 updateNotifier({ pkg }).notify({
   isGlobal: true,
   shouldNotifyInNpmScript: true
 })
 
-cli
-  .usage('Usage: ... | pretty [options]')
+// ───────────────────────────────  CLI conf  ──────────────────────────────────
+
+yargs
+  .usage('Usage: $0 [options]')
+  .scriptName('pretty')
+  .env('PRETTY')
+  .wrap(getColumns())
 
   .option('time-stamps', {
+    alias: 'stamps',
     group: 'Headers',
-    default: config.timeStamps,
+    default: defaultConfig.timeStamps,
     describe: 'Print TimeStamps',
     type: 'boolean'
   })
@@ -32,29 +38,34 @@ cli
   .option('stamps-format', {
     alias: 'f',
     group: 'Headers',
-    default: config.stampsFormat,
-    describe: 'TimeStamps format',
-    type: 'String'
+    default: defaultConfig.stampsFormat,
+    describe: 'TimeStamps format (moment)',
+    type: 'string'
   })
 
   .option('stamps-time-zone', {
-    alias: 'tz',
+    alias: 'z',
     group: 'Headers',
-    default: config.stampsTimeZone,
+    default: defaultConfig.stampsTimeZone,
+    coerce: val => {
+      const zone = val.trim()
+      if (moment.tz.zone(zone)) return zone
+      throw new RangeError(`${zone} is not a known time zone`)
+    },
     describe: 'TimeStamps zone offset.',
-    type: 'String'
+    type: 'string'
   })
 
   .option('print-host', {
     group: 'Headers',
-    default: false,
+    default: defaultConfig.printHost,
     describe: 'prepends the host to the log line, useful for combined streams',
     type: 'boolean'
   })
 
   .option('strict', {
     group: 'Filter',
-    default: config.strict,
+    default: defaultConfig.strict,
     describe: 'Suppress all but legal Bunyan JSON log lines',
     type: 'boolean'
   })
@@ -64,62 +75,97 @@ cli
     group: 'Filter',
     choices: ['trace', 'debug', 'info', 'error', 'warn', 'fatal'],
     describe: 'Only show messages at or above the specified level.',
+    coerce: v => coerceLevel(v, true, true),
     type: 'string'
   })
 
   .option('depth', {
     group: 'Inspect',
     describe: '(passed to util.inspect)',
-    default: config.depth,
+    default: defaultConfig.depth,
+    coerce: v => (v < 0 ? 0 : v),
     type: 'number'
   })
 
   .option('max-array-length', {
     group: 'Inspect',
     describe: '(passed to util.inspect)',
-    default: config.maxArrayLength,
+    default: defaultConfig.maxArrayLength,
+    coerce: v => (v < 0 ? 0 : v),
     type: 'number'
   })
 
-  .option('force-color', {
-    default: config.forceColor,
-    type: 'boolean',
-    describe: 'Force color output'
+  .option('colorize', {
+    alias: 'c',
+    default: defaultConfig.colorize,
+    describe: 'Force color output',
+    type: 'boolean'
   })
 
-  .epilog('Copyright (c) 2018 Jorge Proaño. All rights reserved.')
-  .wrap(getColumns())
+  .fail(onValidationFail)
+  .showHelpOnFail(false)
+
+  .example('node server.js | $0 [options]', 'Prettifies program server.js')
+  .example('$0 [options] < server.log', 'Prettifies log file server.log')
+
+  .help('h')
+  .alias('h', 'help')
+
   .version()
-  .help()
+  .epilog('Copyright (c) 2019 Jorge Proaño. All rights reserved.')
+
+  .completion()
+
+// ────────────────────────────────  Parser  ───────────────────────────────────
+
+const opts = asOptions(yargs.argv)
+
+// ─────────────────────────────────  Exit  ────────────────────────────────────
 
 if (process.stdin.isTTY === true) {
-  cli.showHelp()
+  debug('CLI Options: %O', opts)
+  yargs.showHelp()
   process.exit(0)
 }
 
 process.stdin.on('end', exit)
-process.on('SIGINT', () => cleanupAndExit('SIGINT'))
-process.on('SIGQUIT', () => cleanupAndExit('SIGQUIT'))
-process.on('SIGTERM', () => cleanupAndExit('SIGTERM'))
-process.on('SIGHUP', () => cleanupAndExit('SIGHUP'))
-process.on('SIGBREAK', () => cleanupAndExit('SIGBREAK'))
+process.on('SIGINT', () => cleanupAndExit())
+process.on('SIGQUIT', () => cleanupAndExit())
+process.on('SIGTERM', () => cleanupAndExit())
+process.on('SIGHUP', () => cleanupAndExit())
+process.on('SIGBREAK', () => cleanupAndExit())
 
-const argv = fp.pipe(
-  argv => fp.pick(CONSTANTS.CONFIG_FILEDS, argv),
-  argv => util.diffDeep(config, argv)
-)(cli.argv)
-
-const outputStream = require('../lib')(process.stdout, argv)
-process.stdin.pipe(outputStream)
-
-// ────────────────────────────────  private  ──────────────────────────────────
-
-function cleanupAndExit (signal) {
-  debug('Recieved: %s. Clossing on 500ms', signal)
+function cleanupAndExit () {
   setTimeout(() => process.exit(0), 500)
 }
 
 function exit () {
-  debug('stdin ended, closing the app')
   process.exit(0)
+}
+
+// ─────────────────────────────────  Main  ────────────────────────────────────
+
+const pretty = require('../lib')(opts)
+
+const prettyTransport = new Transform({
+  objectMode: true,
+  transform (chunk, _enc, cb) {
+    const line = pretty(chunk.toString())
+    if (line === undefined) return cb()
+    cb(undefined, line)
+  }
+})
+
+pump(process.stdin, split(), prettyTransport, process.stdout)
+
+// ────────────────────────────────  private  ──────────────────────────────────
+
+function onValidationFail (msg) {
+  // eslint-disable-next-line no-console
+  console.error(`
+    ${chalk.red.bold(msg)}
+
+    ${chalk.yellow('Use --help for available options')}
+    `)
+  process.exit(1)
 }

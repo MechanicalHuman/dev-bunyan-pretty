@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    /* Base target config */
+    "target": "es2016", // Specify ECMAScript target version:
+    "moduleResolution": "node", // Determine how modules get resolved.
+    "module": "commonjs", // Specify module code generation: Maybe ES6?
+    "lib": ["es2017"],
+    /* Compatibility */
+    "esModuleInterop": true, // Emit __importStar and __importDefault helpers for runtime babel ecosystem compatibility and enable SyntheticDefaultImports for typesystem compatibility.
+    "allowSyntheticDefaultImports": true, // Allow default imports from modules with no default export. This does not affect code emit, just typechecking.
+    "jsx": "react", // Support JSX in .tsx files using React conventions
+    "resolveJsonModule": true, // Include modules imported with .json extension.
+
+    /* Output */
+    "noEmitOnError": true, // Do not emit outputs if any errors were reported. (probably disable it while migrating)
+    "sourceMap": false, // Generates corresponding .map file
+    "stripInternal": true, // Do not emit declarations for code that has an /** @internal */ JSDoc annotation.
+    "removeComments": false, // Emit comments in the output
+
+    // ─────────────────────────  Code Nitpicking  ─────────────────────────
+
+    "strict": true, // this enables the following:
+
+    /*
+     "noImplicitAny": true, // Raise error on expressions and declarations with an implied any type.
+     "noImplicitReturns": true, // Report error when not all code paths in function return a value.
+     "alwaysStrict": true, // Parse in strict mode and emit "use strict" for each source file
+     "strictNullChecks": true, // null and undefined values are not in the domain of every type and are only assignable to themselves.
+     "strictFunctionTypes": true, // Disable bivariant parameter checking for function types.
+     "strictPropertyInitialization": true, // Ensure non-undefined class properties are initialized in the constructor
+     "noImplicitThis": true, // Raise error on this expressions with an implied any type.
+     "strictBindCallApply" :  true, // Enable stricter checking of of the bind, call, and apply methods on functions.
+     */
+    "forceConsistentCasingInFileNames": true, // 	Disallow inconsistently-cased references to the same file.
+    "noFallthroughCasesInSwitch": true, // Report errors for fallthrough cases in switch statement.
+    "noUnusedLocals": true, // Report errors on unused locals.
+    "noUnusedParameters": true, // Report errors on unused parameters.
+    "experimentalDecorators": false, // Enables experimental support for ES decorators. (I dont like them, you guys shoulnd't either)
+    "allowUnreachableCode": false, // report errors on unreachable code.
+    "allowUnusedLabels": false, // report errors on unused labels.
+
+    /* Relaxing errors */
+    "suppressExcessPropertyErrors": true, // Suppress excess property checks for object literals.
+    "suppressImplicitAnyIndexErrors": true, // Suppress errors for indexing objects lacking index signatures
+    "noImplicitAny": false,
+    /* Extras */
+    "pretty": true, // Stylize errors and messages using color and context.
+
+    "checkJs": true
+  },
+  "exclude": ["node_modules", "**/node_modules/*"]
+}

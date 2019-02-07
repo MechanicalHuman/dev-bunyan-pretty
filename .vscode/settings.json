@@ -1,9 +1,8 @@
 {
-  "files.exclude": {
-    "**/node_modules": true,
-    "**/*.sublime-workspace": true
-  },
   "eslint.enable": true,
   "editor.formatOnSave": true,
-  "prettier.eslintIntegration": true
+  "prettier.eslintIntegration": true,
+  "prettier.tslintIntegration": true,
+  "cSpell.words": ["ipaddr"],
+  "npm-intellisense.importES6": false
 }
