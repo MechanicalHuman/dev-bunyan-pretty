@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MechanicalHuman/dev-bunyan-pretty.git"
+    "url": "git@github.com:MechanicalHuman/dev-bunyan-pretty.git"
   },
   "license": "MIT",
   "author": "Jorge Proaño <jorge@hiddennodeproblem.com> (http://www.hidden-node-problem.com)",
   "contributors": [
-    "Jorge Proaño <jorge@hiddennodeproblem.com> (http://www.hidden-node-problem.com)"
+    "Jorge Proaño <jorge@hiddennodeproblem.com>"
   ],
   "main": "lib/index.js",
   "bin": {
@@ -27,11 +27,11 @@
     "lib": "lib"
   },
   "scripts": {
-    "precommit": "npm run docs && lint-staged",
     "docs": "run-s docs:** -sn",
     "postdocs": "git add README.md AUTHORS LICENSE package.json",
     "docs:authors": "git log --format='%aN <%aE>' | sort -f | uniq > AUTHORS",
     "docs:compile": "projectz compile",
+    "precommit": "npm run docs && lint-staged",
     "prepush": "npm run test",
     "test": "run-s test:* -sn",
     "test:depcheck": "depcheck --ignores=husky,config --ignore-bin-package",
@@ -73,6 +73,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "maintainers": []
+  }
 }
