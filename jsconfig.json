@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     /* Base target config */
-    "target": "es5", // Specify ECMAScript target version:
+    "target": "es2016", // Specify ECMAScript target version:
     "moduleResolution": "node", // Determine how modules get resolved.
     "module": "commonjs", // Specify module code generation: Maybe ES6?
     "lib": ["es2017"],

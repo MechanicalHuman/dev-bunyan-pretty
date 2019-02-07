@@ -3,5 +3,6 @@
   "editor.formatOnSave": true,
   "prettier.eslintIntegration": true,
   "prettier.tslintIntegration": true,
-  "cSpell.words": ["ipaddr"]
+  "cSpell.words": ["ipaddr"],
+  "npm-intellisense.importES6": false
 }
