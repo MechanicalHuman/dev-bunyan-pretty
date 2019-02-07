@@ -1,11 +1,11 @@
 #! /usr/bin/env node
 'use strict'
-process.env.DEBUG = 'mech:*'
+
 const yargs = require('yargs')
 const updateNotifier = require('update-notifier')
 const pump = require('pump')
 const split = require('split2')
-const { Transform } = require('readable-stream')
+const { Transform } = require('stream')
 const moment = require('moment-timezone')
 const chalk = require('chalk')
 
