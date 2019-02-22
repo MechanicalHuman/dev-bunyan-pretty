@@ -4,56 +4,59 @@
 
 > Prettifies NDJSON (Newline Delimited JSON) logs, like \`bunyan -o short\` but actually pretty.
 
-<!-- TITLE/ -->
-
-<h1>@mechanicalhuman/bunyan-pretty</h1>
-
-<!-- /TITLE -->
-
-<!-- DESCRIPTION/ -->
-
-Prettifies NDJSON (Newline Delimited JSON) logs, like `bunyan -o short` but actually pretty.
-
-<!-- /DESCRIPTION -->
-
-<!-- INSTALL/ -->
-
-<h2>Install</h2>
-
-<a href="https://npmjs.com" title="npm is a package manager for javascript"><h3>NPM</h3></a><ul>
-
-<li>Install: <code>npm install --save @mechanicalhuman/bunyan-pretty</code></li>
-<li>Executable: <code>pretty</code></li>
-<li>Module: <code>require('@mechanicalhuman/bunyan-pretty')</code></li></ul>
-
-<!-- /INSTALL -->
-
 ---
+
+## Table of Contents
+
+- [Installation](#installation)
+
+- [Usage](#usage)
+
+  - [Advanced Usage](#advanced-usage)
+
+- [Programatic Interface](#programatic-interface)
+
+- [Options](#options)
+
+- [Example](#example)
+
+- [Changelog](#changelog)
+
+- [Maintainers](#maintainers)
+
+- [License](#license)
+
+## Installation
+
+```sh
+npm install @mechanicalhuman/bunyan-pretty
+```
 
 ## Usage
 
 The tool reads from the `STDIN` and is installed as the cmd `pretty` in the shell.
 
--   You can pipe it to the output of a running application:
+- You can pipe it to the output of a running application:
 
-    ```sh
-    node index.js | pretty [OPTIONS]
-    ```
+  ```sh
+  node index.js | pretty [OPTIONS]
+  ```
 
--   Or just feed it an already existing file.
+- Or just feed it an already existing file.
 
-    ```sh
-    pretty [OPTIONS] < input.log
-    ```
+  ```sh
+  pretty [OPTIONS] < input.log
+  ```
 
-## Options
+### Advanced Usage
 
+```txt
     pretty --help
     ___
 
     Usage: ... | pretty [options]
 
-    Time Staps
+    Time Stamps
     --time-stamps                   Print TimeStamps.                   [boolean][default: true]
     --stamps-format, -f             TimeStamps format.                  [YYYY-MM-DD-HH:mm:ss]
     --stamps-time-zone, --tz        TimeStamps zone offset.             [default: "Etc/UTC"]
@@ -69,15 +72,18 @@ The tool reads from the `STDIN` and is installed as the cmd `pretty` in the shel
 
     Other
     --force-color                   Force color output                  [boolean][default: false]
+```
 
-#### Notes:
+![stamps](img/pretty-stamps.png)
 
--   The`boolean` options can be set false using `--no-option`. Example: `--no-time-stamps`
--   The`--level` choices are: "trace", "debug", "info", "error", "warn", "fatal"
--   The`--stamps-format` value is passed directly to [`moment.format()`](https://momentjs.com/docs/#/displaying/format/)
--   You force the colored output using the env variable: `FORCE_COLOR=1`
--   You can pass the time stamps zone offset via the env variable: `PRETTY_TZ`
--   You can pass the time stamps format via the env variable: `PRETTY_STAMPS_FORMAT`
+Notes:
+
+- The`boolean` options can be set false using `--no-option`. Example: `--no-time-stamps`
+- The`--level` choices are: "trace", "debug", "info", "error", "warn", "fatal"
+- The`--stamps-format` value is passed directly to [`moment.format()`](https://momentjs.com/docs/#/displaying/format/)
+- You force the colored output using the env variable: `FORCE_COLOR=1`
+- You can pass the time stamps zone offset via the env variable: `PRETTY_TZ`
+- You can pass the time stamps format via the env variable: `PRETTY_STAMPS_FORMAT`
 
 ## Programatic Interface
 
@@ -96,54 +102,50 @@ You can use pretty as a writable stream from inside your NodeJS scripts. Probabl
 const pretty = require('@mechanicalhuman/bunyan-pretty')
 ```
 
-### Default Options:
+## Options
 
 The options object passed to `pretty` will merge with the default options.
 
 ```js
 const defaultOptions = {
-    level: 0, // Named level or bunyan/pino level value
-    strict: false,
+  level: 'trace', // Only print messages >= level.
+  strict: false, // Only print valid pino/bunyan logs
 
-    forceColor: false
-    termColors: false, // trust the term colors, not the stream ones
-    colorLevel: 2 // based on your terminal (uses supports-color)
+  colorize: chalk.supportsColor !== false,
 
-    depth: 4,
-    maxArrayLength: 100,
+  depth: 4, // (passed to util.inspect)
+  maxArrayLength: 100, // (passed to util.inspect)
 
-    printHost: false,
-    timeStamps: true,
-    stampsFormat: 'YYYY-MM-DD-HH:mm:ss',
-    stampsTimeZone: moment.tz.guess(), // Based on your Locale
+  printHost: false, // Print Host.
+  timeStamps: true, // Print TimeStamps.
+  stampsFormat: 'YYYY-MM-DD-HH:mm:ss',
+  stampsTimeZone: moment.tz.guess() // TimeStamps zone offset (Based on your Locale)
 }
 ```
 
-### Example:
+## Example
 
 ```js
 const pretty = require('@mechanicalhuman/bunyan-pretty')
 const bunyan = require('bunyan')
 
 const log = bunyan.createLogger({
-    name: 'myapp',
-    stream: pretty(process.stdout, { timeStamps: false }),
-    level: 'info'
+  name: 'app',
+  stream: pretty(process.stdout, { timeStamps: false }),
+  level: 'info'
 })
 
 log.info('hello world')
 ```
 
-<!-- LICENSE/ -->
+## Changelog
 
-<h2>License</h2>
+Find the CHANGELOG [here](CHANGELOG.md), generated using Conventional Commits.
 
-Unless stated otherwise all works are:
+## Maintainers
 
-<ul><li>Copyright &copy; <a href="http://www.hidden-node-problem.com">Jorge Proaño</a></li></ul>
+- [Jorge Proaño](mailto:jorge@hiddennodeproblem.com)
 
-and licensed under:
+## License
 
-<ul><li><a href="http://spdx.org/licenses/MIT.html">MIT License</a></li></ul>
-
-<!-- /LICENSE -->
+[MIT](LICENSE) © [Jorge Proaño](http://www.hidden-node-problem.com)
