@@ -1,73 +1,76 @@
+import stream from 'stream'
+
 export as namespace Pretty
 
 export = Pretty
 
-declare function Pretty(options?: Pretty.Configuration): function
+/** Factory function that returns a configured prettifier function.  */
+declare function Pretty(options?: Partial<Pretty.Configuration>): function
+
+/** Will wrap the given stream with pretty.  */
+declare function Pretty(
+  stream: Pretty.DestinationStream,
+  options?: Partial<Pretty.Configuration>
+): stream.Writable
 
 declare namespace Pretty {
-    export declare interface LogRecord {
-        pid: string
-        hostname: string
-        level: number
-        time: number
-        app?: string
-        name?: string
-        msg?: string
-        v: 1
+  type DestinationStream =
+    | stream.Writable
+    | stream.Duplex
+    | stream.Transform
+    | NodeJS.WritableStream
 
-        [x: string]: any
-    }
+  export declare interface LogRecord {
+    pid: string
+    hostname: string
+    level: number
+    time: number
+    app?: string
+    name: string
+    msg?: string
+    v: 1
 
-    export interface SerializedReq {
-        method: string
-        url: string
-        remoteAddress?: string
-    }
+    [x: string]: any
+  }
 
-    export interface SerializedRes {
-        statusCode: number
-    }
+  export interface SerializedReq {
+    method: string
+    url: string
+    remoteAddress?: string
+  }
 
-    export interface SerializedErr {
-        stack: string
-        name?: string
-        code?: number
-        signal?: string
-    }
+  export interface SerializedRes {
+    statusCode: number
+  }
 
-    export declare interface HttpRecord extends LogRecord {
-        req: SerializedReq
-        res: SerializedRes
-        userId?: string
-        req_id?: string
-        reqId?: string
-    }
+  export interface SerializedErr {
+    stack: string
+    name?: string
+    code?: number
+    signal?: string
+  }
 
-    export declare interface ErrRecord extends LogRecord {
-        err: SerializedErr
-    }
+  export declare interface HttpRecord extends LogRecord {
+    req: SerializedReq
+    res: SerializedRes
+    userId?: string
+    req_id?: string
+    reqId?: string
+  }
 
-    export declare interface Configuration {
-        level: number
-        strict: boolean
-        colorize: boolean
-        depth: number
-        maxArrayLength: number
-        printHost: boolean
-        timeStamps: boolean
-        stampsFormat: string
-        stampsTimeZone: string
-    }
+  export declare interface ErrRecord extends LogRecord {
+    err: SerializedErr
+  }
 
-    export declare interface Options {
-        level?: number
-        strict?: boolean
-        colorize?: boolean
-        depth?: number
-        maxArrayLength?: number
-        printHost?: boolean
-        timeStamps?: boolean
-        stampsFormat?: string
-        stampsTimeZone?: string
-    }
+  export declare interface Configuration {
+    level: number
+    strict: boolean
+    colorize: boolean
+    depth: number
+    maxArrayLength: number
+    printHost: boolean
+    timeStamps: boolean
+    stampsFormat: string
+    stampsTimeZone: string
+  }
 }

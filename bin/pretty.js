@@ -1,11 +1,14 @@
 #! /usr/bin/env node
+
+/*!
+ * Copyright 2019 Jorge Proaño.
+ */
+
 'use strict'
 
 const yargs = require('yargs')
 const updateNotifier = require('update-notifier')
 const pump = require('pump')
-const split = require('split2')
-const { Transform } = require('stream')
 const moment = require('moment-timezone')
 const chalk = require('chalk')
 
@@ -145,18 +148,9 @@ function exit () {
 
 // ─────────────────────────────────  Main  ────────────────────────────────────
 
-const pretty = require('../lib')(opts)
+const pretty = require('../lib')
 
-const prettyTransport = new Transform({
-  objectMode: true,
-  transform (chunk, _enc, cb) {
-    const line = pretty(chunk.toString())
-    if (line === undefined) return cb()
-    cb(undefined, line)
-  }
-})
-
-pump(process.stdin, split(), prettyTransport, process.stdout)
+pump(process.stdin, pretty(process.stdout, opts))
 
 // ────────────────────────────────  private  ──────────────────────────────────
 
