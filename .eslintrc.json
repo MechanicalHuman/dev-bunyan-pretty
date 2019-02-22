@@ -1,8 +1,20 @@
 {
-  "extends": "eslint-config-hnp",
+  "extends": "hnp",
   "rules": {
     "lodash-fp/use-fp": "warn",
     "lodash-fp/no-chain": "warn",
-    "lodash-fp/consistent-name": "off"
+    "lodash-fp/consistent-name": "off",
+    "header/header": [
+      2,
+      "block",
+      [
+        "!",
+        {
+          "pattern": " \\* Copyright \\d{4} Jorge Proaño.",
+          "template": " * Copyright 2019 Jorge Proaño."
+        },
+        " "
+      ]
+    ]
   }
 }
