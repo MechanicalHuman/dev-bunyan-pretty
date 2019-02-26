@@ -1,4 +1,5 @@
 import stream from 'stream'
+import { defaultConfig } from './config'
 
 export as namespace Pretty
 
@@ -73,4 +74,6 @@ declare namespace Pretty {
     stampsFormat: string
     stampsTimeZone: string
   }
+
+  export const defaultConfig: Configuration
 }
