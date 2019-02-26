@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.3.0"></a>
+# [2.3.0](https://github.com/MechanicalHuman/dev-bunyan-pretty/compare/v2.1.2...v2.3.0) (2019-02-26)
+
+
+### Bug Fixes
+
+* Http formater reports propper response times ([da9a881](https://github.com/MechanicalHuman/dev-bunyan-pretty/commit/da9a881))
+* Minor Documentation fixes ([aa48e3e](https://github.com/MechanicalHuman/dev-bunyan-pretty/commit/aa48e3e))
+* returning Writable Stream ([019a17f](https://github.com/MechanicalHuman/dev-bunyan-pretty/commit/019a17f))
+
+
+### Features
+
+* exporting default config ([1493ca5](https://github.com/MechanicalHuman/dev-bunyan-pretty/commit/1493ca5))
+
+
+
 <a name="2.2.0"></a>
 
 # [2.2.0](https://github.com/MechanicalHuman/dev-bunyan-pretty/compare/v2.1.2...v2.2.0) (2019-02-22)
