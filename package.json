@@ -1,6 +1,6 @@
 {
   "name": "@mechanicalhuman/bunyan-pretty",
-  "version": "2.0.8",
+  "version": "3.0.0",
   "description": "Prettifies NDJSON (Newline Delimited JSON) logs, like `bunyan -o short` but actually pretty.",
   "keywords": [
     "bunyan",
@@ -27,10 +27,10 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "run-s -sn depcheck lint outdated",
     "depcheck": "depcheck --ignores=husky,config --ignore-bin-package",
     "lint": "eslint --ignore-path .gitignore '**/*.js'",
-    "outdated": "npm outdated --long"
+    "outdated": "npm outdated --long",
+    "test": "run-s -sn depcheck lint outdated"
   },
   "dependencies": {
     "chalk": "^4.1.0",
