@@ -8,24 +8,24 @@
 
 ## Table of contents
 
--   [Install](#install)
+- [Install](#install)
 
--   [Usage](#usage)
+- [Usage](#usage)
 
--   [Options](#options)
+  - [Options](#options)
 
-    -   -   [Notes:](#notes)
+    - [Notes](#notes)
 
--   [Programatic Interface](#programatic-interface)
+- [Programatic Interface](#programatic-interface)
 
-    -   [Default Options](#default-options)
-    -   [Example](#example)
+  - [Default Options](#default-options)
+  - [Example](#example)
 
--   [Maintainers](#maintainers)
+- [Maintainers](#maintainers)
 
--   [Changelog](#changelog)
+- [Changelog](#changelog)
 
--   [License](#license)
+- [License](#license)
 
 ## Install
 
@@ -37,19 +37,19 @@ npm install @mechanicalhuman/bunyan-pretty
 
 The tool reads from the `STDIN` and is installed as the cmd `pretty` in the shell.
 
--   You can pipe it to the output of a running application:
+- You can pipe it to the output of a running application:
 
-    ```sh
-    node index.js | pretty [OPTIONS]
-    ```
+  ```sh
+  node index.js | pretty [OPTIONS]
+  ```
 
--   Or just feed it an already existing file.
+- Or just feed it an already existing file.
 
-    ```sh
-    pretty [OPTIONS] < input.log
-    ```
+  ```sh
+  pretty [OPTIONS] < input.log
+  ```
 
-## Options
+### Options
 
     pretty --help
     ___
@@ -73,14 +73,14 @@ The tool reads from the `STDIN` and is installed as the cmd `pretty` in the shel
     Other
     --force-color                   Force color output                  [boolean][default: false]
 
-#### Notes:
+#### Notes
 
--   The`boolean` options can be set false using `--no-option`. Example: `--no-time-stamps`
--   The`--level` choices are: "trace", "debug", "info", "error", "warn", "fatal"
--   The`--stamps-format` value is passed directly to [`moment.format()`](https://momentjs.com/docs/#/displaying/format/)
--   You force the colored output using the env variable: `FORCE_COLOR=1`
--   You can pass the time stamps zone offset via the env variable: `PRETTY_TZ`
--   You can pass the time stamps format via the env variable: `PRETTY_STAMPS_FORMAT`
+- The`boolean` options can be set false using `--no-option`. Example: `--no-time-stamps`
+- The`--level` choices are: "trace", "debug", "info", "error", "warn", "fatal"
+- The`--stamps-format` value is passed directly to [`moment.format()`](https://momentjs.com/docs/#/displaying/format/)
+- You force the colored output using the env variable: `FORCE_COLOR=1`
+- You can pass the time stamps zone offset via the env variable: `PRETTY_TZ`
+- You can pass the time stamps format via the env variable: `PRETTY_STAMPS_FORMAT`
 
 ## Programatic Interface
 
@@ -105,20 +105,20 @@ The options object passed to `pretty` will merge with the default options.
 
 ```js
 const defaultOptions = {
-    level: 0, // Named level or bunyan/pino level value
-    strict: false,
+  level: 0, // Named level or bunyan/pino level value
+  strict: false,
 
-    forceColor: false
-    termColors: false, // trust the term colors, not the stream ones
-    colorLevel: 2, // based on your terminal (uses supports-color)
+  forceColor: false,
+  termColors: false, // trust the term colors, not the stream ones
+  colorLevel: 2, // based on your terminal (uses supports-color)
 
-    depth: 4,
-    maxArrayLength: 100,
+  depth: 4,
+  maxArrayLength: 100,
 
-    printHost: false,
-    timeStamps: true,
-    stampsFormat: 'YYYY-MM-DD-HH:mm:ss',
-    stampsTimeZone: moment.tz.guess(), // Based on your Locale
+  printHost: false,
+  timeStamps: true,
+  stampsFormat: 'YYYY-MM-DD-HH:mm:ss',
+  stampsTimeZone: moment.tz.guess(), // Based on your Locale
 }
 ```
 
@@ -129,9 +129,9 @@ const pretty = require('@mechanicalhuman/bunyan-pretty')
 const bunyan = require('bunyan')
 
 const log = bunyan.createLogger({
-    name: 'myapp',
-    stream: pretty(process.stdout, { timeStamps: false }),
-    level: 'info'
+  name: 'myapp',
+  stream: pretty(process.stdout, { timeStamps: false }),
+  level: 'info',
 })
 
 log.info('hello world')
@@ -139,9 +139,11 @@ log.info('hello world')
 
 ## Maintainers
 
--   [Jorge Proaño](mailto:jorge@hiddennodeproblem.com)
+- [Jorge Proaño](mailto:jorge@hiddennodeproblem.com)
 
 ## Changelog
+
+Find the CHANGELOG [here](CHANGELOG.md), generated using Conventional Commits.
 
 ## License
 

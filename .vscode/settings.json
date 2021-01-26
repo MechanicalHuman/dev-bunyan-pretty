@@ -1,9 +1,15 @@
 {
-  "files.exclude": {
-    "**/node_modules": true,
-    "**/*.sublime-workspace": true
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": false
   },
-  "eslint.enable": true,
+  "editor.tabCompletion": "on",
   "editor.formatOnSave": true,
-  "prettier.eslintIntegration": true
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ]
 }

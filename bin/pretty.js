@@ -16,7 +16,7 @@ const config = util.toObject(util.loadFileConfigs(CONSTANTS.CONFIG_DIR))
 
 updateNotifier({ pkg }).notify({
   isGlobal: true,
-  shouldNotifyInNpmScript: true
+  shouldNotifyInNpmScript: true,
 })
 
 cli
@@ -26,7 +26,7 @@ cli
     group: 'Headers',
     default: config.timeStamps,
     describe: 'Print TimeStamps',
-    type: 'boolean'
+    type: 'boolean',
   })
 
   .option('stamps-format', {
@@ -34,7 +34,7 @@ cli
     group: 'Headers',
     default: config.stampsFormat,
     describe: 'TimeStamps format',
-    type: 'String'
+    type: 'String',
   })
 
   .option('stamps-time-zone', {
@@ -42,21 +42,21 @@ cli
     group: 'Headers',
     default: config.stampsTimeZone,
     describe: 'TimeStamps zone offset.',
-    type: 'String'
+    type: 'String',
   })
 
   .option('print-host', {
     group: 'Headers',
     default: false,
     describe: 'prepends the host to the log line, useful for combined streams',
-    type: 'boolean'
+    type: 'boolean',
   })
 
   .option('strict', {
     group: 'Filter',
     default: config.strict,
     describe: 'Suppress all but legal Bunyan JSON log lines',
-    type: 'boolean'
+    type: 'boolean',
   })
 
   .option('level', {
@@ -64,27 +64,27 @@ cli
     group: 'Filter',
     choices: ['trace', 'debug', 'info', 'error', 'warn', 'fatal'],
     describe: 'Only show messages at or above the specified level.',
-    type: 'string'
+    type: 'string',
   })
 
   .option('depth', {
     group: 'Inspect',
     describe: '(passed to util.inspect)',
     default: config.depth,
-    type: 'number'
+    type: 'number',
   })
 
   .option('max-array-length', {
     group: 'Inspect',
     describe: '(passed to util.inspect)',
     default: config.maxArrayLength,
-    type: 'number'
+    type: 'number',
   })
 
   .option('force-color', {
     default: config.forceColor,
     type: 'boolean',
-    describe: 'Force color output'
+    describe: 'Force color output',
   })
 
   .epilog('Copyright (c) 2018 Jorge Proaño. All rights reserved.')
@@ -105,8 +105,8 @@ process.on('SIGHUP', () => cleanupAndExit('SIGHUP'))
 process.on('SIGBREAK', () => cleanupAndExit('SIGBREAK'))
 
 const argv = fp.pipe(
-  argv => fp.pick(CONSTANTS.CONFIG_FILEDS, argv),
-  argv => util.diffDeep(config, argv)
+  (argv) => fp.pick(CONSTANTS.CONFIG_FIELDS, argv),
+  (argv) => util.diffDeep(config, argv)
 )(cli.argv)
 
 const outputStream = require('../lib')(process.stdout, argv)
@@ -114,12 +114,12 @@ process.stdin.pipe(outputStream)
 
 // ────────────────────────────────  private  ──────────────────────────────────
 
-function cleanupAndExit (signal) {
-  debug('Recieved: %s. Clossing on 500ms', signal)
+function cleanupAndExit(signal) {
+  debug('Received: %s. Clossing on 500ms', signal)
   setTimeout(() => process.exit(0), 500)
 }
 
-function exit () {
+function exit() {
   debug('stdin ended, closing the app')
   process.exit(0)
 }
