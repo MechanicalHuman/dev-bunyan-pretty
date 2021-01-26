@@ -1,28 +1,37 @@
-<!-- TITLE/ -->
-
-<h1>@mechanicalhuman/bunyan-pretty</h1>
-
-<!-- /TITLE -->
-
-<!-- DESCRIPTION/ -->
-
-Prettifies NDJSON (Newline Delimited JSON) logs, like `bunyan -o short` but actually pretty.
-
-<!-- /DESCRIPTION -->
+# @mechanicalhuman/bunyan-pretty
 
 ![hero image](https://raw.githubusercontent.com/MechanicalHuman/dev-bunyan-pretty/master/img/pretty-nostamps.png)
 
-<!-- INSTALL/ -->
+> Prettifies NDJSON (Newline Delimited JSON) logs, like \`bunyan -o short\` but actually pretty.
 
-<h2>Install</h2>
+---
 
-<a href="https://npmjs.com" title="npm is a package manager for javascript"><h3>NPM</h3></a><ul>
+## Table of contents
 
-<li>Install: <code>npm install --save @mechanicalhuman/bunyan-pretty</code></li>
-<li>Executable: <code>pretty</code></li>
-<li>Module: <code>require('@mechanicalhuman/bunyan-pretty')</code></li></ul>
+-   [Install](#install)
 
-<!-- /INSTALL -->
+-   [Usage](#usage)
+
+-   [Options](#options)
+
+    -   -   [Notes:](#notes)
+
+-   [Programatic Interface](#programatic-interface)
+
+    -   [Default Options](#default-options)
+    -   [Example](#example)
+
+-   [Maintainers](#maintainers)
+
+-   [Changelog](#changelog)
+
+-   [License](#license)
+
+## Install
+
+```sh
+npm install @mechanicalhuman/bunyan-pretty
+```
 
 ## Usage
 
@@ -90,7 +99,7 @@ You can use pretty as a writable stream from inside your NodeJS scripts. Probabl
 const pretty = require('@mechanicalhuman/bunyan-pretty')
 ```
 
-### Default Options:
+### Default Options
 
 The options object passed to `pretty` will merge with the default options.
 
@@ -101,7 +110,7 @@ const defaultOptions = {
 
     forceColor: false
     termColors: false, // trust the term colors, not the stream ones
-    colorLevel: 2 // based on your terminal (uses supports-color)
+    colorLevel: 2, // based on your terminal (uses supports-color)
 
     depth: 4,
     maxArrayLength: 100,
@@ -113,7 +122,7 @@ const defaultOptions = {
 }
 ```
 
-### Example:
+### Example
 
 ```js
 const pretty = require('@mechanicalhuman/bunyan-pretty')
@@ -128,16 +137,12 @@ const log = bunyan.createLogger({
 log.info('hello world')
 ```
 
-<!-- LICENSE/ -->
+## Maintainers
 
-<h2>License</h2>
+-   [Jorge Proaño](mailto:jorge@hiddennodeproblem.com)
 
-Unless stated otherwise all works are:
+## Changelog
 
-<ul><li>Copyright &copy; <a href="http://www.hidden-node-problem.com">Jorge Proaño</a></li></ul>
+## License
 
-and licensed under:
-
-<ul><li><a href="http://spdx.org/licenses/MIT.html">MIT License</a></li></ul>
-
-<!-- /LICENSE -->
+[MIT](LICENSE) © [Jorge Proaño](http://www.hidden-node-problem.com)
