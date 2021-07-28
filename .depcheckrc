@@ -1,0 +1,10 @@
+{
+  "ignores": [
+    "lint-staged",
+    "prettier",
+    "husky"
+  ],
+  "ignorePatterns": [
+
+  ]
+}
