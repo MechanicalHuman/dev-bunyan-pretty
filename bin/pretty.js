@@ -1,18 +1,14 @@
 #! /usr/bin/env node
 'use strict'
 
-process.env.SUPPRESS_NO_CONFIG_WARNING = 'y'
-
 const cli = require('yargs')
 const updateNotifier = require('update-notifier')
 const debug = require('debug')('mech:pretty:cli')
-const { util } = require('config')
 const fp = require('lodash/fp')
 const pkg = require('../package.json')
 const { getColumns } = require('../lib/utils')
 const CONSTANTS = require('../lib/constants')
-
-const config = util.toObject(util.loadFileConfigs(CONSTANTS.CONFIG_DIR))
+const config = require('../lib/utils/config')
 
 updateNotifier({ pkg }).notify({
   isGlobal: true,
@@ -24,7 +20,7 @@ cli
 
   .option('time-stamps', {
     group: 'Headers',
-    default: config.timeStamps,
+    default: config.get('timeStamps'),
     describe: 'Print TimeStamps',
     type: 'boolean',
   })
@@ -32,7 +28,7 @@ cli
   .option('stamps-format', {
     alias: 'f',
     group: 'Headers',
-    default: config.stampsFormat,
+    default: config.get('stampsFormat'),
     describe: 'TimeStamps format',
     type: 'String',
   })
@@ -40,7 +36,7 @@ cli
   .option('stamps-time-zone', {
     alias: 'tz',
     group: 'Headers',
-    default: config.stampsTimeZone,
+    default: config.get('stampsTimeZone'),
     describe: 'TimeStamps zone offset.',
     type: 'String',
   })
@@ -54,7 +50,7 @@ cli
 
   .option('strict', {
     group: 'Filter',
-    default: config.strict,
+    default: config.get('strict'),
     describe: 'Suppress all but legal Bunyan JSON log lines',
     type: 'boolean',
   })
@@ -70,24 +66,24 @@ cli
   .option('depth', {
     group: 'Inspect',
     describe: '(passed to util.inspect)',
-    default: config.depth,
+    default: config.get('depth'),
     type: 'number',
   })
 
   .option('max-array-length', {
     group: 'Inspect',
     describe: '(passed to util.inspect)',
-    default: config.maxArrayLength,
+    default: config.get('maxArrayLength'),
     type: 'number',
   })
 
   .option('force-color', {
-    default: config.forceColor,
+    default: config.get('forceColor'),
     type: 'boolean',
     describe: 'Force color output',
   })
 
-  .epilog('Copyright (c) 2018 Jorge Proaño. All rights reserved.')
+  .epilog('Copyright (c) 2021 Jorge Proaño. All rights reserved.')
   .wrap(getColumns())
   .version()
   .help()
@@ -104,10 +100,7 @@ process.on('SIGTERM', () => cleanupAndExit('SIGTERM'))
 process.on('SIGHUP', () => cleanupAndExit('SIGHUP'))
 process.on('SIGBREAK', () => cleanupAndExit('SIGBREAK'))
 
-const argv = fp.pipe(
-  (argv) => fp.pick(CONSTANTS.CONFIG_FIELDS, argv),
-  (argv) => util.diffDeep(config, argv)
-)(cli.argv)
+const argv = fp.pipe((argv) => fp.pick(CONSTANTS.CONFIG_FIELDS, argv))(cli.argv)
 
 const outputStream = require('../lib')(process.stdout, argv)
 process.stdin.pipe(outputStream)
