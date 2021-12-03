@@ -33,12 +33,12 @@
     "test": "run-s -sn depcheck lint"
   },
   "dependencies": {
-    "chalk": "^4.1.1",
-    "debug": "^4.3.2",
+    "chalk": "^4.1.2",
+    "debug": "^4.3.3",
     "ipaddr.js": "^2.0.1",
     "lodash": "^4.17.21",
-    "moment-timezone": "^0.5.33",
-    "parse-headers": "^2.0.3",
+    "moment-timezone": "^0.5.34",
+    "parse-headers": "^2.0.4",
     "pretty-ms": "^7.0.1",
     "split2": "^3.2.2",
     "string-length": "^4.0.2",
