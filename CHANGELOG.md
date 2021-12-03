@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.2](https://github.com/MechanicalHuman/dev-bunyan-pretty/compare/v3.0.1...v3.0.2) (2021-12-03)
+
+
+### Bug Fixes
+
+* config params ([4ef6f7f](https://github.com/MechanicalHuman/dev-bunyan-pretty/commit/4ef6f7fa5e5150813e405e75d66ecac3c03b0ab8))
+* vunerable packages ([56414d0](https://github.com/MechanicalHuman/dev-bunyan-pretty/commit/56414d0b68b7829ecd33c1e5886ade6b569f30a8))
+
 ### [3.0.1](https://github.com/MechanicalHuman/dev-bunyan-pretty/compare/v3.0.0...v3.0.1) (2021-07-28)
 
 - Removed node-config dependency
