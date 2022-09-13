@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.4](https://github.com/MechanicalHuman/dev-bunyan-pretty/compare/v3.0.3...v3.0.4) (2022-09-13)
+
+
+### Bug Fixes
+
+* use `message` as msg key if found ([b3f45e1](https://github.com/MechanicalHuman/dev-bunyan-pretty/commit/b3f45e181427d84f4ba5a5236e536455e2caea38))
+
 ### [3.0.3](https://github.com/MechanicalHuman/dev-bunyan-pretty/compare/v3.0.2...v3.0.3) (2021-12-03)
 
 
