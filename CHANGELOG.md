@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.5](https://github.com/MechanicalHuman/dev-bunyan-pretty/compare/v3.0.4...v3.0.5) (2022-09-13)
+
+
+### Bug Fixes
+
+* Add `severity` to the list of omit fields ([32f779e](https://github.com/MechanicalHuman/dev-bunyan-pretty/commit/32f779e2378a03a67738407f00e0f64aa52d7fa9))
+
 ### [3.0.4](https://github.com/MechanicalHuman/dev-bunyan-pretty/compare/v3.0.3...v3.0.4) (2022-09-13)
 
 
